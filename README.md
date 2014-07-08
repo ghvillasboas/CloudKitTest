@@ -1,11 +1,11 @@
 CloudKit Test
 =============
 
-This is an implementation of CloudKit exploring the convenience methods,
-like save and fetch, record id and subscriptions.
+This is an implementation of CloudKit exploring the convenience methods
+like: save and fetch, record id and subscriptions.
 
-To make it work, you should have an paid subscription of Apple's iOS developer
-program, iOS 8 betas installed and Xcode 6. It will not fully work on the simulators
+To make it work, you should be enroled on Apple's iOS developer
+program and have iOS 8 betas installed along with Xcode 6. It will not fully work on the simulators
 since they don't support push notifications.
 
 ## Just follow the steps.
@@ -40,7 +40,11 @@ If you don't enable push notifications, you should not be able to receive pushes
 - On versions prior to beta 3, subscriptions wasn't functional
 - On beta 3, it was funcional but you should get an error message when subscribing to notifications, like the one below:
 
-  2014-07-08 12:24:53.655 CloudKitTest[455:92919] SUBSCRIPTION ERROR! <CKError 0x15629430: "Server Rejected Request" (15/2032); "Error saving record subscription with id 4B8AE952-B571-441A-8E69-BB4D9B8EA4EF to server: (null)"; uuid = 128A9D96-C75E-441A-ADDB-C2E205C66360; container ID = "iCloud.br.com.cocoaheads.CloudKitTest">
+```
+  2014-07-08 12:24:53.655 CloudKitTest[455:92919] SUBSCRIPTION ERROR! <CKError 0x15629430: "Server Rejected Request" (15/2032); 
+  "Error saving record subscription with id 4B8AE952-B571-441A-8E69-BB4D9B8EA4EF to server: (null)"; uuid = 
+  128A9D96-C75E-441A-ADDB-C2E205C66360; container ID = "iCloud.br.com.cocoaheads.CloudKitTest">
+```
 
 You can ignore it for now. I got CK notifications working even though with this error.
 If you wish to duplicate this radar to Apple, here's one I'd opened:
