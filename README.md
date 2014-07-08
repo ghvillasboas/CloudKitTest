@@ -10,27 +10,35 @@ since they don't support push notifications.
 
 ## Just follow the steps.
 
-CloudKit Setup (client side)
+### CloudKit Setup (client side)
 1. Clone and open this repository with XCode 6.
+
 2. Change the bundle name, usually with you own reverse domain.
+
 3. Change your team settings for the project, usually with your own certificate.
+
 4. On the Capabilities tab, turn off and on the switch for iCloud, checking the CloudKit service box. It should look like the image below.
 
 ![Cloud Kit Client Side Setup](https://raw.github.com/ghvillasboas/CloudKitTest/master/images/cloudkit1.png)
 
 5. XCode should be able to to all this setup and provisioning for you. If not, login the Certificates, Identifiers & Profiles on the DevPortal and create a new AppID with the iCloud application services enabled.
 
-CloudKit Setup (server side)
+### CloudKit Setup (server side)
 1. Login to the CloudKit Dashboard (https://icloud.developer.apple.com/dashboard)
+
 2. Create Record Types (left column) and add a new record by clicking the "+" button.
+
 3. Enter "Heros" as the new record type.
+
 4. Add a new attribute named "name" and type String. It should look like the image below.
 
 ![Cloud Kit Server Side Setup](https://raw.github.com/ghvillasboas/CloudKitTest/master/images/cloudkit2.png)
 
-Enable Push Notification
+### Enable Push Notification
 1. In order to make CloudKit subscriptions work, you have to enable push notification provisioning on your app.
+
 2. Login to the Certificates, Identifiers & Profiles on the DevPortal, click on AppIDs and locate your app (it should be created by XCode).
+
 3. Enable Push notifications. To enable it you should create at least the developement certificate. Just follow the instructions on screen.
 
 If you don't enable push notifications, you should not be able to receive pushes from CloudKit.
