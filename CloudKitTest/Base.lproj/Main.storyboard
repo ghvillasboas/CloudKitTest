@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6181.2"/>
     </dependencies>
     <scenes>
-        <!--CloudKit Heros-->
+        <!--CloudKit Heroes-->
         <scene sceneID="UTi-IX-eoM">
             <objects>
                 <tableViewController id="888-gB-2lH" customClass="CloudKitTableViewController" sceneMemberID="viewController">
@@ -33,7 +33,7 @@
                             <outlet property="delegate" destination="888-gB-2lH" id="75e-0T-SDX"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="CloudKit Heros" id="gUa-zo-bLL">
+                    <navigationItem key="navigationItem" title="CloudKit Heroes" id="gUa-zo-bLL">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="i8a-M1-04R">
                             <connections>
                                 <segue destination="U3H-Oi-ZYa" kind="show" id="dha-fZ-Bvt"/>
