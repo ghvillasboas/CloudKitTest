@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 CocoaHeads Brasil. All rights reserved.
 //
 
-#define GVCloudKitRecordType @"Heros"
+#define GVCloudKitRecordType @"Heroes"
 #define GVCloudKitSubscriptionId @"br.com.cocoaheads.cloudkittest.newHeroSubscription"
 
 #define GVCloudKitRecordCreationNotification @"br.com.cocoaheads.cloudkittest.creation.notification"
