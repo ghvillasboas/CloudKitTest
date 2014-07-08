@@ -1,0 +1,195 @@
+//
+//  CloudKitTableViewController.m
+//  CloudKitTest
+//
+//  Created by George Villasboas on 7/8/14.
+//  Copyright (c) 2014 CocoaHeads Brasil. All rights reserved.
+//
+
+#import "CloudKitTableViewController.h"
+#import <CloudKit/CloudKit.h>
+#import "CloudKitParams.h"
+
+@interface CloudKitTableViewController ()
+@property (nonatomic, readonly) CKDatabase *publicDatabase;
+@property (strong, nonatomic) NSMutableArray *results;
+@end
+
+@implementation CloudKitTableViewController
+
+#pragma mark -
+#pragma mark Getters overriders
+
+- (CKDatabase *)publicDatabase
+{
+    return [[CKContainer defaultContainer] publicCloudDatabase];
+}
+
+- (NSMutableArray *)results
+{
+    if (!_results) {
+        _results = [[NSMutableArray alloc] init];
+    }
+    
+    return _results;
+}
+
+#pragma mark -
+#pragma mark Setters overriders
+
+#pragma mark -
+#pragma mark Designated initializers
+
+#pragma mark -
+#pragma mark Public methods
+
+#pragma mark -
+#pragma mark Private methods
+
+/**
+ *  Query cloud kit for initial fetch (thread safe)
+ */
+- (void)queryCloudKit
+{
+    CKQuery *query = [[CKQuery alloc] initWithRecordType:GVCloudKitRecordType
+                                               predicate:[NSPredicate predicateWithFormat:@"TRUEPREDICATE"]];
+    [self.publicDatabase performQuery:query
+                         inZoneWithID:nil
+                    completionHandler:^(NSArray *results, NSError *error) {
+                        
+                        if (!error) {
+                            
+                            // CK convenience methods completion
+                            // arent executed on the callers thread.
+                            // more info: http://openradar.appspot.com/radar?id=5534800471392256
+                            @synchronized(self){
+                                self.results = [results mutableCopy];
+                                
+                                // make sure it executes on main thread
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [self.tableView reloadData];
+                                });
+                            }
+                            
+                        }
+                        else{
+                            NSLog(@"FETCH ERROR: %@", error);
+                        }
+                    }];
+}
+
+/**
+ *  Subscribe to CK pushes on record creations
+ */
+- (void)subscribeToCloudKitPushes
+{
+    CKSubscription *subscription = [[CKSubscription alloc]
+                                    initWithRecordType:GVCloudKitRecordType predicate:[NSPredicate predicateWithFormat:@"TRUEPREDICATE"] subscriptionID:GVCloudKitSubscriptionId options:CKSubscriptionOptionsFiresOnRecordCreation];
+    
+    CKNotificationInfo *notificationInfo = [CKNotificationInfo new];
+    notificationInfo.alertLocalizationKey = @"LOCAL_NOTIFICATION_KEY";
+    subscription.notificationInfo = notificationInfo;
+    
+    [self.publicDatabase saveSubscription:subscription
+                        completionHandler:^(CKSubscription *subscription, NSError *error) {
+                            if (error) {
+                                // On iOS Beta 3 this always fires, but pushes
+                                // are recieved!
+                                // more info: http://openradar.appspot.com/radar?id=6172661096906752
+                                NSLog(@"SUBSCRIPTION ERROR! %@", error);
+                            }
+                        }];
+}
+
+#pragma mark -
+#pragma mark ViewController life cycle
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    // make first call to CK
+    [self queryCloudKit];
+    
+    // subscribe to notifications, if needed
+    [self subscribeToCloudKitPushes];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // When a push from CK arrives, the appdelegate dispatches a notification
+    // using the default central. We listen to it and then update the UI.
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(update:)
+                                                 name:GVCloudKitRecordCreationNotification
+                                               object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    // we're off screen. Unsubscribe.
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark -
+#pragma mark Overriden methods
+
+#pragma mark -
+#pragma mark Storyboards Segues
+
+#pragma mark -
+#pragma mark Target/Actions
+
+#pragma mark -
+#pragma mark Delegates and Datasources
+
+#pragma mark TableView Datasources
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // Return the number of rows in the section.
+    return self.results.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"reuseIdentifier" forIndexPath:indexPath];
+    
+    if (cell) {
+        // Configure the cell...
+        CKRecord *record = self.results[indexPath.row];
+        cell.textLabel.text = [record objectForKey:@"name"];
+    }
+    
+    return cell;
+}
+
+#pragma mark -
+#pragma mark Notification center
+
+- (void)update:(NSNotification *)notification
+{
+    // CK convenience methods completion arent executed on the callers thread.
+    // So we make sure its on main thread and thread safe.
+    // more info: http://openradar.appspot.com/radar?id=5534800471392256
+    
+    @synchronized(self){
+        if ([notification.object isKindOfClass:[CKRecord class]]) {
+            [self.results addObject:notification.object];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
+        }
+    }
+}
+
+@end

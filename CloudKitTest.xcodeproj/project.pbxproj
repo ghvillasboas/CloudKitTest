@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E7E0987196B2B130081A746 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7E0986196B2B130081A746 /* CloudKit.framework */; };
+		5E7E098A196B35330081A746 /* CloudKitTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E7E0989196B35330081A746 /* CloudKitTableViewController.m */; };
+		5EE3EDFE196C54EC0093D24C /* StateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EE3EDFD196C54EC0093D24C /* StateViewController.m */; };
 		5EF44F03196A47DB0056B64E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF44F02196A47DB0056B64E /* main.m */; };
 		5EF44F06196A47DB0056B64E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF44F05196A47DB0056B64E /* AppDelegate.m */; };
-		5EF44F09196A47DB0056B64E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF44F08196A47DB0056B64E /* ViewController.m */; };
 		5EF44F0C196A47DB0056B64E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EF44F0A196A47DB0056B64E /* Main.storyboard */; };
 		5EF44F0E196A47DB0056B64E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EF44F0D196A47DB0056B64E /* Images.xcassets */; };
 		5EF44F1A196A47DB0056B64E /* CloudKitTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF44F19196A47DB0056B64E /* CloudKitTestTests.m */; };
@@ -26,18 +28,23 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5E61E2CE196C6A6800B58B7F /* CloudKitParams.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloudKitParams.h; sourceTree = "<group>"; };
+		5E7E0986196B2B130081A746 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		5E7E0988196B35330081A746 /* CloudKitTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudKitTableViewController.h; sourceTree = "<group>"; };
+		5E7E0989196B35330081A746 /* CloudKitTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudKitTableViewController.m; sourceTree = "<group>"; };
+		5EE3EDFC196C54EC0093D24C /* StateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateViewController.h; sourceTree = "<group>"; };
+		5EE3EDFD196C54EC0093D24C /* StateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StateViewController.m; sourceTree = "<group>"; };
 		5EF44EFD196A47DB0056B64E /* CloudKitTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudKitTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EF44F01196A47DB0056B64E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5EF44F02196A47DB0056B64E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5EF44F04196A47DB0056B64E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5EF44F05196A47DB0056B64E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		5EF44F07196A47DB0056B64E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		5EF44F08196A47DB0056B64E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		5EF44F0B196A47DB0056B64E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5EF44F0D196A47DB0056B64E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5EF44F13196A47DB0056B64E /* CloudKitTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CloudKitTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EF44F18196A47DB0056B64E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5EF44F19196A47DB0056B64E /* CloudKitTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CloudKitTestTests.m; sourceTree = "<group>"; };
+		5EF44F23196A47F20056B64E /* CloudKitTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CloudKitTest.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E7E0987196B2B130081A746 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +69,7 @@
 		5EF44EF4196A47DB0056B64E = {
 			isa = PBXGroup;
 			children = (
+				5E7E0986196B2B130081A746 /* CloudKit.framework */,
 				5EF44EFF196A47DB0056B64E /* CloudKitTest */,
 				5EF44F16196A47DB0056B64E /* CloudKitTestTests */,
 				5EF44EFE196A47DB0056B64E /* Products */,
@@ -79,10 +88,14 @@
 		5EF44EFF196A47DB0056B64E /* CloudKitTest */ = {
 			isa = PBXGroup;
 			children = (
+				5EF44F23196A47F20056B64E /* CloudKitTest.entitlements */,
+				5E61E2CE196C6A6800B58B7F /* CloudKitParams.h */,
 				5EF44F04196A47DB0056B64E /* AppDelegate.h */,
 				5EF44F05196A47DB0056B64E /* AppDelegate.m */,
-				5EF44F07196A47DB0056B64E /* ViewController.h */,
-				5EF44F08196A47DB0056B64E /* ViewController.m */,
+				5E7E0988196B35330081A746 /* CloudKitTableViewController.h */,
+				5E7E0989196B35330081A746 /* CloudKitTableViewController.m */,
+				5EE3EDFC196C54EC0093D24C /* StateViewController.h */,
+				5EE3EDFD196C54EC0093D24C /* StateViewController.m */,
 				5EF44F0A196A47DB0056B64E /* Main.storyboard */,
 				5EF44F0D196A47DB0056B64E /* Images.xcassets */,
 				5EF44F00196A47DB0056B64E /* Supporting Files */,
@@ -165,6 +178,12 @@
 				TargetAttributes = {
 					5EF44EFC196A47DB0056B64E = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = L6W3TBRD57;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					5EF44F12196A47DB0056B64E = {
 						CreatedOnToolsVersion = 6.0;
@@ -215,9 +234,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5EF44F09196A47DB0056B64E /* ViewController.m in Sources */,
 				5EF44F06196A47DB0056B64E /* AppDelegate.m in Sources */,
+				5E7E098A196B35330081A746 /* CloudKitTableViewController.m in Sources */,
 				5EF44F03196A47DB0056B64E /* main.m in Sources */,
+				5EE3EDFE196C54EC0093D24C /* StateViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,9 +354,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = CloudKitTest/CloudKitTest.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CloudKitTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -345,9 +370,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = CloudKitTest/CloudKitTest.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CloudKitTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -406,6 +436,7 @@
 				5EF44F1F196A47DB0056B64E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5EF44F20196A47DB0056B64E /* Build configuration list for PBXNativeTarget "CloudKitTestTests" */ = {
 			isa = XCConfigurationList;
@@ -414,6 +445,7 @@
 				5EF44F22196A47DB0056B64E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

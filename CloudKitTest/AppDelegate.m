@@ -2,11 +2,13 @@
 //  AppDelegate.m
 //  CloudKitTest
 //
-//  Created by George Henrique Villasboas on 7/7/14.
-//  Copyright (c) 2014 CocoaHeads Goiânia. All rights reserved.
+//  Created by George Villasboas on 7/8/14.
+//  Copyright (c) 2014 CocoaHeads Brasil. All rights reserved.
 //
 
 #import "AppDelegate.h"
+#import <CloudKit/CloudKit.h>
+#import "CloudKitParams.h"
 
 @interface AppDelegate ()
             
@@ -18,6 +20,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge categories:nil]];
+    [application registerForRemoteNotifications];
+    
     return YES;
 }
 
@@ -41,6 +47,32 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    NSLog(@"Remote push notification from CK recieved!");
+    
+    CKNotification *cloudKitNotification = [CKNotification
+                                            notificationFromRemoteNotificationDictionary:userInfo];
+    
+    if (cloudKitNotification.notificationType == CKNotificationTypeQuery) {
+        CKQueryNotification *queryNotification = (CKQueryNotification *)cloudKitNotification;
+        CKRecordID *recordID = [queryNotification recordID];
+        CKDatabase *publicDatabase = [[CKContainer defaultContainer] publicCloudDatabase];
+        
+        [publicDatabase fetchRecordWithID:recordID
+                        completionHandler:^(CKRecord *fetchedRecord, NSError *error) {
+                            if (error) {
+                                NSLog(@"ERROR FETCHING: %@", error);
+                            }
+                            else{
+                                if (fetchedRecord) {
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:GVCloudKitRecordCreationNotification object:fetchedRecord];
+                                }
+                            }
+                        }];
+    }
 }
 
 @end
