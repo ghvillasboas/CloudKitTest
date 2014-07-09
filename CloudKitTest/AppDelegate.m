@@ -26,6 +26,9 @@
  */
 - (void)checkForCKDiscoverabiltyStatus
 {
+    // this will display a scary message for the user.
+    // I'd opened a radar suggesting tweaks on it, so users can securelly opt-in to it.
+    // more info: http://openradar.appspot.com/radar?id=5898405960220672
     [self.defaultContainer statusForApplicationPermission:CKApplicationPermissionUserDiscoverability completionHandler:^(CKApplicationPermissionStatus applicationPermissionStatus, NSError *error) {
         if (!error) {
             if (applicationPermissionStatus != CKApplicationPermissionStatusGranted &&
