@@ -11,6 +11,7 @@
 #import "CloudKitParams.h"
 
 @interface CloudKitTableViewController ()
+@property (nonatomic, readonly) CKContainer *defaultContainer;
 @property (nonatomic, readonly) CKDatabase *publicDatabase;
 @property (strong, nonatomic) NSMutableArray *results;
 @end
@@ -20,9 +21,14 @@
 #pragma mark -
 #pragma mark Getters overriders
 
+- (CKContainer *)defaultContainer
+{
+    return [CKContainer defaultContainer];
+}
+
 - (CKDatabase *)publicDatabase
 {
-    return [[CKContainer defaultContainer] publicCloudDatabase];
+    return self.defaultContainer.publicCloudDatabase;
 }
 
 - (NSMutableArray *)results
@@ -101,6 +107,40 @@
                         }];
 }
 
+/**
+ *  Plays with the CK discoverability features.
+ */
+- (void)playWithDiscoverability
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    // check for previous user data fetches
+    if (![defaults objectForKey:@"firstName"]) {
+        [self.defaultContainer fetchUserRecordIDWithCompletionHandler:^(CKRecordID *recordID, NSError *error) {
+            if (!error) {
+                [self.publicDatabase fetchRecordWithID:recordID completionHandler:^(CKRecord *record, NSError *error2) {
+                    if (!error2) {
+                        [self.defaultContainer discoverUserInfoWithUserRecordID:recordID completionHandler:^(CKDiscoveredUserInfo *userInfo, NSError *error3) {
+                            if (!error3 && ![@"" isEqualToString:userInfo.firstName]) {
+                                // save to NSUserDefaults
+                                
+                                [defaults setObject:userInfo.firstName forKey:@"firstName"];
+                                [defaults setObject:userInfo.lastName forKey:@"lastname"];
+                                [defaults synchronize];
+                                
+                                self.title = [NSString stringWithFormat:@"%@'s Heroes", userInfo.firstName];
+                            }
+                        }];
+                    }
+                }];
+            }
+        }];
+    }
+    else{
+        self.title = [NSString stringWithFormat:@"%@'s Heroes", [defaults objectForKey:@"firstName"]];
+    }
+}
+
 #pragma mark -
 #pragma mark ViewController life cycle
 
@@ -113,6 +153,15 @@
     
     // subscribe to notifications, if needed
     [self subscribeToCloudKitPushes];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // play with user's discoverability feature
+    // just customizes the navcon title
+    [self playWithDiscoverability];
 }
 
 - (void)viewDidAppear:(BOOL)animated
