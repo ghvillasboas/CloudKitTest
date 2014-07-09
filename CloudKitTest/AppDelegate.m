@@ -11,18 +11,39 @@
 #import "CloudKitParams.h"
 
 @interface AppDelegate ()
-            
-
+@property (readonly, nonatomic) CKContainer *defaultContainer;
 @end
 
 @implementation AppDelegate
-            
+
+- (CKContainer *)defaultContainer
+{
+    return [CKContainer defaultContainer];
+}
+
+/**
+ *  Check and ask for users permission on discoverability
+ */
+- (void)checkForCKDiscoverabiltyStatus
+{
+    [self.defaultContainer statusForApplicationPermission:CKApplicationPermissionUserDiscoverability completionHandler:^(CKApplicationPermissionStatus applicationPermissionStatus, NSError *error) {
+        if (!error) {
+            if (applicationPermissionStatus != CKApplicationPermissionStatusGranted &&
+                applicationPermissionStatus != CKApplicationPermissionStatusDenied) {
+                // request authorization.
+                [self.defaultContainer requestApplicationPermission:CKApplicationPermissionUserDiscoverability completionHandler:nil];
+            }
+        }
+    }];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
     [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge categories:nil]];
     [application registerForRemoteNotifications];
+    
+    [self checkForCKDiscoverabiltyStatus];
     
     return YES;
 }
