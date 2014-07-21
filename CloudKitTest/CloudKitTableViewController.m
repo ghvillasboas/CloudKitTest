@@ -68,6 +68,11 @@
                             // CK convenience methods completion
                             // arent executed on the callers thread.
                             // more info: http://openradar.appspot.com/radar?id=5534800471392256
+                            
+                            // Update: Apple engineers replied this radar saying this is an
+                            // expected behaviour and it's up to us to decide in which thread
+                            // to run. I believe it's just extra work and it should always execute
+                            // the completion on the thread it was originated.
                             @synchronized(self){
                                 self.results = [results mutableCopy];
                                 
@@ -99,8 +104,8 @@
     [self.publicDatabase saveSubscription:subscription
                         completionHandler:^(CKSubscription *subscription, NSError *error) {
                             if (error) {
-                                // On iOS Beta 3 this always fires, but pushes
-                                // are recieved!
+                                // On iOS Beta 3 this always fires an error, but pushes
+                                // are recieved! (FIXED ON BETA 4)
                                 // more info: http://openradar.appspot.com/radar?id=6172661096906752
                                 NSLog(@"SUBSCRIPTION ERROR! %@", error);
                             }
@@ -162,6 +167,13 @@
     // play with user's discoverability feature
     // just customizes the navcon title
     [self playWithDiscoverability];
+    
+    // Always reload the table when it will appear.
+    // This is necessary because the device that published new data
+    // to CloudKit, doesnt receive the CKNotitication, what makes sense.
+    
+    // This feature is new on beta 4!
+    [self.tableView reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -230,6 +242,10 @@
     // So we make sure its on main thread and thread safe.
     // more info: http://openradar.appspot.com/radar?id=5534800471392256
     
+    // Update: Apple engineers replied this radar saying this is an
+    // expected behaviour and it's up to us to decide in which thread
+    // to run. I believe it's just extra work and it should always execute
+    // the completion on the thread it was originated.
     @synchronized(self){
         if ([notification.object isKindOfClass:[CKRecord class]]) {
             [self.results addObject:notification.object];
