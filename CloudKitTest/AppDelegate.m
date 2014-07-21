@@ -37,6 +37,9 @@
                 [self.defaultContainer requestApplicationPermission:CKApplicationPermissionUserDiscoverability completionHandler:nil];
             }
         }
+        else{
+            NSLog(@"Error: %@", error.localizedDescription);
+        }
     }];
 }
 
