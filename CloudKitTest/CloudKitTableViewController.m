@@ -133,7 +133,11 @@
                                 [defaults setObject:userInfo.lastName forKey:@"lastname"];
                                 [defaults synchronize];
                                 
-                                self.title = [NSString stringWithFormat:@"%@'s Heroes", userInfo.firstName];
+                                
+                                // Makes sure it runs on the main thread!
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    self.title = [NSString stringWithFormat:@"%@'s Heroes", userInfo.firstName];
+                                });
                             }
                         }];
                     }

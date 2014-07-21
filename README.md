@@ -28,7 +28,7 @@ since they don't support push notifications.
 
 2. Create Record Types (left column) and add a new record by clicking the "+" button.
 
-3. Enter "Heros" as the new record type.
+3. Enter "Heroes" as the new record type.
 
 4. Add a new attribute named "name" and type String. It should look like the image below.
 
@@ -46,21 +46,22 @@ If you don't enable push notifications, you should not be able to receive pushes
 # Side notes
 
 - On versions prior to beta 3, subscriptions wasn't functional
-- On beta 3, it was funcional but you should get an error message when subscribing to notifications, like the one below:
+- ~~On beta 3, it was funcional but you should get an error message when subscribing to notifications, like the one below:~~ (fixed on beta 4)
 
 ```
   2014-07-08 12:24:53.655 CloudKitTest[455:92919] SUBSCRIPTION ERROR! <CKError 0x15629430: "Server Rejected Request" (15/2032); 
   "Error saving record subscription with id 4B8AE952-B571-441A-8E69-BB4D9B8EA4EF to server: (null)"; uuid = 
   128A9D96-C75E-441A-ADDB-C2E205C66360; container ID = "iCloud.br.com.cocoaheads.CloudKitTest">
 ```
-
-You can ignore it for now. I got CK notifications working even though with this error.
+~~You can ignore it for now. I got CK notifications working even though with this error.
 If you wish to duplicate this radar to Apple, here's one I'd opened:
-http://openradar.appspot.com/radar?id=6172661096906752
+http://openradar.appspot.com/radar?id=6172661096906752~~
 
 - It's cool to test this app on more then one device. You should see records appearing on both a little while after saving them.
 
-- This example was builded and tested with iOS and Xcode 6 both in beta 3.
+- **(NEW ON iOS8 BETA 4)** The device that requested a change on the public database will not receive a CKNotification, since it knows what the chances are. So if you expect a notification to update your UI, make sure you consider this!
+
+- This example was builded and tested with iOS and Xcode 6 both in beta 4.
 
 ## Questions?
 
